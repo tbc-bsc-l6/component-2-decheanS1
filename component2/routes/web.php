@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,19 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/user/{id}', function ($id) {
-    return 'User '.$id;
-});
-
-Route::post('products/{id}', function ($id) {
-
-});
+Route::get('/', [PostController::class, 'index']);
 
 
-
+Route::resource('posts', PostController::class);
 
 

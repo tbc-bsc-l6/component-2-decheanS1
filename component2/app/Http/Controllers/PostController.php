@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('post.index')
+                ->with('posts', $posts);
+
     }
 
     /**
@@ -23,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -34,7 +39,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        // Post::create([
+        //     'title' => $request->title,
+        //     'content' => $request->content
+        // ]);
+
+        Post::create($request->all());
+
+        return redirect(route('posts.index'));
+
     }
 
     /**
@@ -43,9 +61,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('post.show')->with('post', $post);
+
     }
 
     /**
@@ -54,9 +73,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('post.edit')->with('post', $post);
     }
 
     /**
@@ -66,9 +85,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        $post->update($request->all());
+        return redirect(route('posts.index'));
     }
 
     /**
@@ -77,8 +101,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect(route('posts.index'));
     }
 }
