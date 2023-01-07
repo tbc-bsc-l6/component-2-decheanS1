@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::latest()->paginate();
         return view('post.index')
                 ->with('posts', $posts);
 
@@ -40,7 +40,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|min:5',
             'content' => 'required'
         ]);
 
@@ -88,7 +88,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|min:5',
             'content' => 'required'
         ]);
         $post->update($request->all());

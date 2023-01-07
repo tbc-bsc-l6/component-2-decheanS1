@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PostController::class, 'index']);
+Route::view('/', 'welcome');
 
 
 Route::resource('posts', PostController::class);

@@ -1,25 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<x-guest-layout>
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>Crud </h2>
+            </div>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-
-</head>
-<body>
-
-
-    <div class="container">
-        @yield('content')
+        </div>
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
+        <div class="flex flex-row">
+            <div class="grid grow justify-end">
+                <a href="{{route('posts.create') }}" class="bg-blue-700 p-2 text-white">Create +</a>
+            </div>
 
-</body>
-</html>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-5 ">
+
+            @foreach ($posts as $post)
 
 
+                {{-- show content for specific user only --}}
+                {{-- @can('view', $post) --}}
+                    <div class="overflow-hidden shadow-xl sm:rounded-lg p-5 m-2 pb-2 bg-gray-100 bg-opacity-75">
+
+                        <p class="text-xl"> {{ $post->title }} </p>
+                        {{-- {{ $post->content }}  --}}
+                        {{-- limiting the no. of chars to 10 --}}
+                        <p class="text-sm"> {{ Str::limit($post->content, 10) }} </p>
+                        {{-- showing the no. of chars in () --}}
+                        ({{ Str::length($post->content) }})
+                        <hr>
+
+                        <div class="inline-flex items-center mt-3">
+                            <img alt="blog" src="/myimage/img.png" class="w-8 h-8 rounded-full flex-shrink-0 object-cover object-center">
+                            <span class="flex-grow flex flex-col pl-3">
+                              <span class="title-font font-bold text-gray-900"> {{$post->user->name}}  </span>
+                            </span>
+                        </div>
+
+                    </div>
+
+            @endforeach
+        </div>
+
+    </div>
+    <div class="m-5">
+        {{ $posts->links() }}
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</x-guest-layout>
