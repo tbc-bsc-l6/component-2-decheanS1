@@ -1,39 +1,23 @@
-<x-layout>
-
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-500 leading-tight">
-            {{ __('Create Products') }}
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Create Posts') }}
         </h2>
-    </x-slot> --}}
+    </x-slot>
 
-    {{-- <x-slot name="content"> --}}
-
-    <div class="container  mx-auto py-12">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="bg-white shadow-xl sm:rounded-lg p-2 m-2">
-                        <form action="{{ route('posts.store') }}" method="post">
-                            @csrf
-
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="title" placeholder="Title" aria-label="First name">
-                            </div>
-                            <div class="mb-3">
-                                <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                            <input type="submit" value="Submit" class="btn btn-primary p-2">
-
-                        </form>
-
-
-
-
-                    </div>
-
-                </div>
-              </div>
-
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+                <form action="{{ route('posts.store') }}" method="POST"  class="p-2">
+                    @csrf
+                    <input type="text" name="title" placeholder="Title"><br><br>
+                    <textarea name="content" cols="30" rows="7" placeholder="Content"> </textarea><br>
+                    <input type="submit" value="Submit" class="bg-blue-500 p-2">
+                </form>
+            </div>
+        </div>
     </div>
+
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -47,4 +31,4 @@
 
     {{-- </x-slot> --}}
 
-</x-layout>
+</x-app-layout>

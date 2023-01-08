@@ -49,7 +49,9 @@ class PostController extends Controller
         //     'content' => $request->content
         // ]);
 
-        Post::create($request->all());
+        $attributes = $request->all();
+        $attributes['user_id'] = auth()->user()->id;
+        Post::create($attributes);
 
         return redirect(route('posts.index'));
 
