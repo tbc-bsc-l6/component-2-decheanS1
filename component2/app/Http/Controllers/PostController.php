@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate();
+        $posts = Post::latest()->paginate(16);
         return view('post.index')
                 ->with('posts', $posts);
 
@@ -77,6 +77,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
         return view('post.edit')->with('post', $post);
     }
 
@@ -89,6 +90,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update', $post);
+
         $request->validate([
             'title' => 'required|min:5',
             'content' => 'required'
@@ -105,7 +108,21 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
+
         $post->delete();
         return redirect(route('posts.index'));
     }
+
+
+
+    // public function dash()
+    // {
+    //     $posts = auth()->user()->posts;
+    //     return view('dashboard')
+    //             ->with('posts', $posts);
+    // }
+
+
+
 }

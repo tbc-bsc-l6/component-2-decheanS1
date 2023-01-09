@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 
-Route::resource('posts', PostController::class);
-
-
 
 Route::middleware([
     'auth:sanctum',
@@ -31,6 +28,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+// Route::get('posts/dashboard', [PostController::class, 'dash']);
+
+Route::resource('posts', PostController::class)->middleware(['auth', 'web']);
+
 
 
 
