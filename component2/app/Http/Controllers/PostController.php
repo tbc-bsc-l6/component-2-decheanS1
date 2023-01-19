@@ -15,7 +15,17 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(16);
+        // $posts = cache()->remember('posts-page-'.request('page', default:1), 35, function () {
+        //     var_dump('hello');
+        //     // return Post::latest()->paginate(16);
+        //     return Post::search(request('search'))->paginate(16);
+        // });
+
+        $posts = Post::search(request('search'))->paginate(16);
+
+
+        // $posts = Post::paginate(16);
+
         return view('post.index')
                 ->with('posts', $posts);
 
@@ -66,7 +76,6 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('post.show')->with('post', $post);
-
     }
 
     /**

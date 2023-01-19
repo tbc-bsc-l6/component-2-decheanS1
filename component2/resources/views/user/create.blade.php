@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Posts') }}
+            {{ __('Create Users') }}
         </h2>
     </x-slot>
     {{-- for the errors --}}
@@ -19,20 +19,24 @@
     @endif
 
     {{-- the content  --}}
-
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 overflow-hidden">
             <div class="bg-white shadow-xl sm:rounded-lg p-5 mx-auto max-w-md ">
-                <form action="{{ route('posts.store') }}" method="POST"  class="p-2  flex flex-col">
+                <form action="{{ route('users.store') }}" method="POST"  class="p-2 flex flex-col">
                     @csrf
-                    <input type="text" name="title" placeholder="Title"><br>
-                    <textarea name="content"  rows="7" placeholder="Content"> </textarea><br>
+                    <input type="text" name="name" placeholder="Name" ><br><br>
+                    <input type="text" name="email" placeholder="Email"> <br><br>
+                    <input type="password" name="password" placeholder="Password" > <br><br>
                     <input type="submit" value="Submit" class="bg-blue-500 p-2 text-white">
-
                 </form>
             </div>
         </div>
     </div>
+
+
+
+    <!-- component -->
+
 
 <script>
      // Script For Close alert
